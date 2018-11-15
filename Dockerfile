@@ -4,7 +4,7 @@ COPY package.json ./
 
 RUN npm install --production
 
-COPY . .
+COPY index.js .
 
 EXPOSE 4242
 
