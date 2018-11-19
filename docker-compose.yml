@@ -2,7 +2,7 @@ version: "3.3"
 services:
   web:
     container_name: unleash_app
-    build: .
+    build: ./app/docker
     image: unleash-docker_web:latest
     ports:
       - "4242:4242"
@@ -10,16 +10,18 @@ services:
       DATABASE_URL: postgres://orbis_user:1523orbis_und@db/orbis_toggles_db
     depends_on:
       - db
-    # command: > 
-    #   sh -c "
-    #     while ! nc -z db 5432; do
-    #       echo 'Postgres is unavailable.'
-    #       sleep 1
-    #     done
-    #     npm run start"
+    command: > 
+      sh -c "
+        while ! nc -z db 5432; do
+          echo 'Postgres is unavailable.'
+          sleep 1
+        done
+        npm run start"
   db:
     container_name: postgres_app
     image: postgres:10-alpine
+    volumes:
+      - ./data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: orbis_user
       POSTGRES_PASSWORD: 1523orbis_und
