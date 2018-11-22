@@ -10,13 +10,13 @@ services:
       DATABASE_URL: postgres://orbis_user:1523orbis_und@db/orbis_toggles_db
     depends_on:
       - db
-    command: > 
-      sh -c "
-        while ! nc -z db 5432; do
-          echo 'Postgres is unavailable.'
-          sleep 1
-        done
-        npm run start"
+    # command: >
+    #   sh -c "
+    #     while ! nc -z db 5432; do
+    #       echo 'Postgres is unavailable.'
+    #       sleep 1
+    #     done
+    #     npm run start"
   db:
     container_name: postgres_app
     image: postgres:10-alpine
@@ -32,4 +32,4 @@ services:
     container_name: postgres_admin
     image: adminer
     ports:
-      - 8080:8080  
+      - 8080:8080
